@@ -25,4 +25,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     keywords="meetup api",
+    install_requires=['slumber'],
+    tests_require=['pytest'],
 )
