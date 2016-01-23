@@ -1,12 +1,6 @@
-import os
 import six
-import slumber
 
-API_KEY = os.environ.get('MEETUP_API_KEY')
-
-API_URL = 'http://api.meetup.com/'
-
-API = slumber.API(API_URL)
+from meetup import api
 
 
 class BaseFromDictClass(object):
