@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='meetup-api',
+    name='meetup',
     version='0.0.1',
     packages=find_packages(),
     url='https://github.com/pferate/meetup-api',
@@ -9,7 +9,7 @@ setup(
     author='Pat Ferate',
     author_email='',
     description='Python API for Meetup',
-    long_description=open('README.md').read(),
+    long_description='Python API for Meetup',
     classifiers=[
         'Development Status :: 1 - Planning',
         'Intended Audience :: Developers',
@@ -25,6 +25,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     keywords="meetup api",
-    install_requires=['six', 'slumber'],
+    install_requires=['six'],
     tests_require=['pytest'],
 )

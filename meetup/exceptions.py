@@ -5,19 +5,31 @@ class MeetupBaseException(Exception):
     """
 
 
-class MeetupClientException(MeetupBaseException):
+class ClientException(MeetupBaseException):
     """
     Meetup Client Exception base class.
     """
 
 
-class ApiKeyException(MeetupClientException):
+class ApiKeyError(ClientException):
     """
     There is a problem with the client API key.
     """
 
 
-class ApiMethodNotDefined(MeetupClientException):
+class ApiMethodError(ClientException):
     """
     The called API method is not defined or does not exist.
+    """
+
+
+class ApiParameterError(ClientException):
+    """
+    The called API method is missing a required parameter.
+    """
+
+
+class HttpMethodError(ClientException):
+    """
+    The requested HTTP Method is not valid.
     """
