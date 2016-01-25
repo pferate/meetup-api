@@ -17,7 +17,7 @@ class Client(object):
         # For internal references, can be refactored out if needed.
         self.services = {}
         self._versioned_services = {}
-        for version, file_name in six.iteritems(API_SERVICE_FILES):
+        for version, file_name in API_SERVICE_FILES:
             api_data = json.load(open(file_name))
             self._versioned_services[version] = api_data
             for service_name, service_details in six.iteritems(api_data['operations']):
