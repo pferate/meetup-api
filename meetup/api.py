@@ -3,6 +3,7 @@ import json
 import os
 import requests
 import six
+from time import sleep
 
 from meetup import API_DEFAULT_URL, API_KEY_ENV_NAME, API_SERVICE_FILES
 from meetup.exceptions import ApiKeyError, ApiMethodError, ApiParameterError, \
@@ -47,18 +48,20 @@ class Client(object):
 
     """
 
-    def __init__(self, api_key=None, api_url=API_DEFAULT_URL):
+    def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=False):
         """
         There are 3 options for defining the API key prior to making API calls:
         1. Pass it as a parameter (api_key)
         2. Stored as an environment variable, if parameter is not defined. (Default: MEETUP_API_KEY)
         3. Define it after the object is created. (client.api_key = 'my_secret_api_key')
 
-        :param api_key: Meetup API Key, from https://secure.meetup.com/meetup_api/key/
-        :param api_url: Meetup API URL,  Keeping it flexible so that it can be generalized in the future.
+        :param api_key:         Meetup API Key, from https://secure.meetup.com/meetup_api/key/
+        :param api_url:         Meetup API URL,  Keeping it flexible so that it can be generalized in the future.
+        :param overlimit_wait:  Whether or not to wait and retry if over API request limit. (Default: False)
         """
         self._api_url = api_url
         self.api_key = api_key or os.environ.get(API_KEY_ENV_NAME)
+        self.overlimit_wait = overlimit_wait
         self.rate_limit = RateLimit()
         # For internal references, can be refactored out if needed.
         self.services = {}
@@ -120,6 +123,10 @@ class Client(object):
         if response.status_code == 404:
             raise HttpNotFoundError
         if response.status_code == 429:
-            raise HttpTooManyRequests
+            if self.overlimit_wait:
+                sleep(self.rate_limit.reset)
+                self._call(service_name, parameters)
+            else:
+                raise HttpTooManyRequests
 
         return MeetupObject(response.json())
