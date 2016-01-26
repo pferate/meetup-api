@@ -16,8 +16,7 @@ def api_client():
 
 @pytest.mark.parametrize("group_name", valid_groups)
 def test_get_valid_group(api_client, group_name):
-    response = api_client.GetGroup({'urlname': group_name})
-    group_info = MeetupObject(response.json())
+    group_info = api_client.GetGroup({'urlname': group_name})
     assert isinstance(group_info, MeetupObject)
 
 
@@ -29,12 +28,9 @@ def test_get_invalid_group(api_client, group_name):
 
 @pytest.mark.parametrize("group_name", valid_groups)
 def test_case_insensitive_group_name(api_client, group_name):
-    response = api_client.GetGroup({'urlname': group_name})
-    response_lower = api_client.GetGroup({'urlname': group_name.lower()})
-    response_upper = api_client.GetGroup({'urlname': group_name.upper()})
-    group = MeetupObject(response.json())
-    group_lower = MeetupObject(response_lower.json())
-    group_upper = MeetupObject(response_upper.json())
+    group = api_client.GetGroup({'urlname': group_name})
+    group_lower = api_client.GetGroup({'urlname': group_name.lower()})
+    group_upper = api_client.GetGroup({'urlname': group_name.upper()})
     assert isinstance(group, MeetupObject)
     assert isinstance(group_lower, MeetupObject)
     assert isinstance(group_upper, MeetupObject)

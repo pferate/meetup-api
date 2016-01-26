@@ -4,7 +4,7 @@ import os
 import requests
 import six
 
-from meetup import API_DEFAULT_URL, API_KEY_ENV_NAME, API_SERVICE_FILES
+from meetup import API_DEFAULT_URL, API_KEY_ENV_NAME, API_SERVICE_FILES, MeetupObject
 from meetup.exceptions import ApiKeyError, ApiMethodError, ApiParameterError, \
     HttpMethodError, HttpNotFoundError, HttpUnauthorized, HttpTooManyRequests
 
@@ -102,4 +102,4 @@ class Client(object):
         if result.status_code == 429:
             raise HttpTooManyRequests
 
-        return result
+        return MeetupObject(result.json())
