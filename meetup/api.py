@@ -6,8 +6,7 @@ import six
 from time import sleep
 
 from meetup import API_DEFAULT_URL, API_KEY_ENV_NAME, API_SERVICE_FILES
-from meetup.exceptions import ApiKeyError, ApiMethodError, ApiParameterError, \
-    HttpMethodError, HttpNotFoundError, HttpUnauthorized, HttpTooManyRequests
+from meetup import exceptions
 
 
 class MeetupObject(object):
@@ -78,23 +77,23 @@ class Client(object):
 
     def _call(self, service_name, parameters=None):
         if not self.api_key:
-            raise ApiKeyError('Meetup API key not set')
+            raise exceptions.ApiKeyError('Meetup API key not set')
         if not isinstance(parameters, dict):
-            raise ApiParameterError('Parameters must be dict')
+            raise exceptions.ApiParameterError('Parameters must be dict')
         if not parameters:
             parameters = {}
         parameters['key'] = self.api_key
 
         # Check for valid method
         if service_name not in self.services:
-            raise ApiMethodError('Unknown API Method [{}]'.format(service_name))
+            raise exceptions.ApiMethodError('Unknown API Method [{}]'.format(service_name))
 
         # Check for Required Parameters
         param_dict = self.services[service_name]['parameters']
         required_params = [k for k, v in six.iteritems(param_dict) if v['required']]
         for param_name in required_params:
             if not parameters.get(param_name):
-                raise ApiParameterError('Missing required parameter: {}'.format(param_name))
+                raise exceptions.ApiParameterError('Missing required parameter: {}'.format(param_name))
 
         # Prepare API call parameters
         request_uri = self.services[service_name]['uri'].format(**parameters)
@@ -111,7 +110,7 @@ class Client(object):
         elif request_http_method == 'DELETE':
             response = requests.delete(request_url, params=parameters)
         else:
-            raise HttpMethodError('HTTP Method not implemented: [{}]'.format(request_http_method))
+            raise exceptions.HttpMethodError('HTTP Method not implemented: [{}]'.format(request_http_method))
 
         # Update rate limit information
         self.rate_limit.limit = response.headers.get('X-RateLimit-Limit')
@@ -119,14 +118,14 @@ class Client(object):
         self.rate_limit.reset = response.headers.get('X-RateLimit-Reset')
 
         if response.status_code == 401:
-            raise HttpUnauthorized
+            raise exceptions.HttpUnauthorized
         if response.status_code == 404:
-            raise HttpNotFoundError
+            raise exceptions.HttpNotFoundError
         if response.status_code == 429:
             if self.overlimit_wait:
                 sleep(self.rate_limit.reset)
                 self._call(service_name, parameters)
             else:
-                raise HttpTooManyRequests
+                raise exceptions.HttpTooManyRequests
 
         return MeetupObject(response.json())

@@ -1,7 +1,7 @@
 import pytest
 
-from meetup import MeetupObject
-from meetup.exceptions import HttpNotFoundError
+from meetup import exceptions
+from meetup.api import MeetupObject
 
 
 valid_groups = ['Meetup-API-Testing', 'PSPPython', 'Seattle-Data-Science', 'codefellows']
@@ -22,7 +22,7 @@ def test_get_valid_group(api_client, group_name):
 
 @pytest.mark.parametrize("group_name", invalid_groups)
 def test_get_invalid_group(api_client, group_name):
-    with pytest.raises(HttpNotFoundError):
+    with pytest.raises(exceptions.HttpNotFoundError):
         api_client.GetGroup({'urlname': group_name})
 
 
