@@ -12,7 +12,7 @@ API_SERVICE_FILES = [
 ]
 
 
-class BaseFromDictClass(object):
+class MeetupObject(object):
     def __init__(self, *initial_data, **kwargs):
         for dictionary in initial_data:
             for key, value in six.iteritems(dictionary):
@@ -21,7 +21,7 @@ class BaseFromDictClass(object):
             setattr(self, key, value)
 
 
-class Group(BaseFromDictClass):
+class Group(MeetupObject):
     """
     Class for Meetup API 'groups' endpoints.  Only v3 endpoints are available at the moment.
     Currently GET is the only HTTP Method available.

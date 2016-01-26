@@ -1,6 +1,6 @@
 import pytest
 
-from meetup import Group
+from meetup import MeetupObject
 from meetup.exceptions import HttpNotFoundError
 
 
@@ -17,8 +17,8 @@ def api_client():
 @pytest.mark.parametrize("group_name", valid_groups)
 def test_get_valid_group(api_client, group_name):
     response = api_client.GetGroup({'urlname': group_name})
-    group_info = Group(response.json())
-    assert isinstance(group_info, Group)
+    group_info = MeetupObject(response.json())
+    assert isinstance(group_info, MeetupObject)
 
 
 @pytest.mark.parametrize("group_name", invalid_groups)
@@ -32,11 +32,11 @@ def test_case_insensitive_group_name(api_client, group_name):
     response = api_client.GetGroup({'urlname': group_name})
     response_lower = api_client.GetGroup({'urlname': group_name.lower()})
     response_upper = api_client.GetGroup({'urlname': group_name.upper()})
-    group = Group(response.json())
-    group_lower = Group(response_lower.json())
-    group_upper = Group(response_upper.json())
-    assert isinstance(group, Group)
-    assert isinstance(group_lower, Group)
-    assert isinstance(group_upper, Group)
+    group = MeetupObject(response.json())
+    group_lower = MeetupObject(response_lower.json())
+    group_upper = MeetupObject(response_upper.json())
+    assert isinstance(group, MeetupObject)
+    assert isinstance(group_lower, MeetupObject)
+    assert isinstance(group_upper, MeetupObject)
     assert group.id == group_lower.id == group_upper.id
     assert group.name == group_lower.name == group_upper.name
