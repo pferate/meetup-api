@@ -1,5 +1,4 @@
 import os
-import six
 
 
 API_DEFAULT_URL = 'http://api.meetup.com/'
