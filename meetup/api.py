@@ -4,9 +4,29 @@ import os
 import requests
 import six
 
-from meetup import API_DEFAULT_URL, API_KEY_ENV_NAME, API_SERVICE_FILES, MeetupObject
+from meetup import API_DEFAULT_URL, API_KEY_ENV_NAME, API_SERVICE_FILES
 from meetup.exceptions import ApiKeyError, ApiMethodError, ApiParameterError, \
     HttpMethodError, HttpNotFoundError, HttpUnauthorized, HttpTooManyRequests
+
+
+class MeetupObject(object):
+    """
+    Generic Meetup Object generated from dict and keyword arguments.
+    """
+    def __init__(self, *initial_data, **kwargs):
+        """
+        Key/Values from dict are accessible from object as attributes (e.g. object.key)
+        Keyword arguments passed at initialization are also accessible in the same way.
+        Keyword values overwrite values from dict.
+
+        :param initial_data Initial values in a dict
+        :param kwargs       Additional key/values to set
+        """
+        for dictionary in initial_data:
+            for key, value in six.iteritems(dictionary):
+                setattr(self, key, value)
+        for key, value in six.iteritems(kwargs):
+            setattr(self, key, value)
 
 
 class RateLimit(object):

@@ -10,12 +10,3 @@ API_SERVICE_FILES = [
     ('v2', os.path.join(CONFIG_DIR, 'meetup_v2_services.json')),
     ('v3', os.path.join(CONFIG_DIR, 'meetup_v3_services.json')),
 ]
-
-
-class MeetupObject(object):
-    def __init__(self, *initial_data, **kwargs):
-        for dictionary in initial_data:
-            for key, value in six.iteritems(dictionary):
-                setattr(self, key, value)
-        for key, value in six.iteritems(kwargs):
-            setattr(self, key, value)
