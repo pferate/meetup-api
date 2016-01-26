@@ -56,7 +56,7 @@ class Client(object):
 
     """
 
-    def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=False):
+    def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=True):
         """
         There are 3 options for defining the API key prior to making API calls:
         1. Pass it as a parameter (api_key)
@@ -65,7 +65,7 @@ class Client(object):
 
         :param api_key:         Meetup API Key, from https://secure.meetup.com/meetup_api/key/
         :param api_url:         Meetup API URL,  Keeping it flexible so that it can be generalized in the future.
-        :param overlimit_wait:  Whether or not to wait and retry if over API request limit. (Default: False)
+        :param overlimit_wait:  Whether or not to wait and retry if over API request limit. (Default: True)
         """
         self._api_url = api_url
         self.api_key = api_key or os.environ.get(API_KEY_ENV_NAME)
@@ -132,7 +132,7 @@ class Client(object):
             raise exceptions.HttpNotFoundError
         if response.status_code == 429:
             if self.overlimit_wait:
-                sleep(self.rate_limit.reset)
+                sleep(int(self.rate_limit.reset))
                 self._call(service_name, parameters)
             else:
                 raise exceptions.HttpTooManyRequests
