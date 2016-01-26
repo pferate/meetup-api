@@ -5,7 +5,8 @@ import requests
 import six
 
 from meetup import API_DEFAULT_URL, API_KEY_ENV_NAME, API_SERVICE_FILES
-from meetup.exceptions import ApiKeyError, ApiMethodError, ApiParameterError, HttpMethodError
+from meetup.exceptions import ApiKeyError, ApiMethodError, ApiParameterError, \
+    HttpMethodError, HttpNotFoundError, HttpUnauthorized, HttpTooManyRequests
 
 
 class Client(object):
@@ -29,6 +30,8 @@ class Client(object):
     def _call(self, service_name, parameters=None):
         if not self.api_key:
             raise ApiKeyError('Meetup API key not set')
+        if not isinstance(parameters, dict):
+            raise ApiParameterError('Parameters must be dict')
         if not parameters:
             parameters = {}
         parameters['key'] = self.api_key
@@ -45,7 +48,7 @@ class Client(object):
                 raise ApiParameterError('Missing required parameter: {}'.format(param_name))
 
         # Execute API Call
-        request_uri =  self.services[service_name]['uri'].format(**parameters)
+        request_uri = self.services[service_name]['uri'].format(**parameters)
         request_url = '{}{}'.format(self._api_url, request_uri)
         request_http_method = self.services[service_name]['httpMethod']
         # This can probably be simplified by calling `requests.request` directly,
@@ -58,5 +61,12 @@ class Client(object):
             result = requests.delete(request_url, params=parameters)
         else:
             raise HttpMethodError('HTTP Method not implemented: [{}]'.format(request_http_method))
+
+        if result.status_code == 401:
+            raise HttpUnauthorized
+        if result.status_code == 404:
+            raise HttpNotFoundError
+        if result.status_code == 429:
+            raise HttpTooManyRequests
 
         return result

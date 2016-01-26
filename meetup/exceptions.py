@@ -1,3 +1,5 @@
+import six
+
 
 class MeetupBaseException(Exception):
     """
@@ -32,4 +34,45 @@ class ApiParameterError(ClientException):
 class HttpMethodError(ClientException):
     """
     The requested HTTP Method is not valid.
+    """
+
+
+class MeetupHttpBaseException(MeetupBaseException):
+    """
+    All Slumber HTTP Exceptions inherit from this exception.
+    """
+
+    def __init__(self, *args, **kwargs):
+        for key, value in six.iteritems(kwargs):
+            setattr(self, key, value)
+        super(MeetupHttpBaseException, self).__init__(*args)
+
+
+class HttpClientError(MeetupHttpBaseException):
+    """
+    Called when the server tells us there was a client error (4xx).
+    """
+
+
+class HttpUnauthorized(HttpClientError):
+    """
+    Called when the server sends a 401 error (when you don't provide a valid key)
+    """
+
+
+class HttpNotFoundError(HttpClientError):
+    """
+    Called when the server sends a 404 error.
+    """
+
+
+class HttpTooManyRequests(HttpClientError):
+    """
+    Called when the server sends a 429 error (when you've gone over your request rate limit)
+    """
+
+
+class HttpServerError(MeetupHttpBaseException):
+    """
+    Called when the server tells us there was a server error (5xx).
     """

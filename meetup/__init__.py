@@ -19,3 +19,21 @@ class BaseFromDictClass(object):
                 setattr(self, key, value)
         for key, value in six.iteritems(kwargs):
             setattr(self, key, value)
+
+
+class Group(BaseFromDictClass):
+    """
+    Class for Meetup API 'groups' endpoints.  Only v3 endpoints are available at the moment.
+    Currently GET is the only HTTP Method available.
+    """
+    # TODO: Add method and parameter documentation
+    # TODO: Explicitly expand **kwargs
+    # TODO: Add other HTTP Method functions
+
+    def __init__(self, *initial_data, **kwargs):
+        """Meetup groups class.
+
+        :param initial_data: Information about group in dict format
+
+        """
+        super().__init__(*initial_data, **kwargs)
