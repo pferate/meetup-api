@@ -9,14 +9,40 @@ from meetup.exceptions import ApiKeyError, ApiMethodError, ApiParameterError, \
     HttpMethodError, HttpNotFoundError, HttpUnauthorized, HttpTooManyRequests
 
 
+class RateLimit(object):
+    """
+    Rate limit information, as defined by Meetup.  This data is received in the response header.
+    limit       X-RateLimit-Limit       The maximum number of requests that can be made in a window of time
+    remaining   X-RateLimit-Remaining   The remaining number of requests allowed in the current rate limit window
+    reset       X-RateLimit-Reset       The number of seconds until the current rate limit window resets
+    """
+    limit = None
+    remaining = None
+    reset = None
+
+
 class Client(object):
+    """
+    Meetup API Client.
+
+    """
 
     def __init__(self, api_key=None, api_url=API_DEFAULT_URL):
+        """
+        There are 3 options for defining the API key prior to making API calls:
+        1. Pass it as a parameter (api_key)
+        2. Stored as an environment variable, if parameter is not defined. (Default: MEETUP_API_KEY)
+        3. Define it after the object is created. (client.api_key = 'my_secret_api_key')
+
+        :param api_key: Meetup API Key, from https://secure.meetup.com/meetup_api/key/
+        :param api_url: Meetup API URL,  Keeping it flexible so that it can be generalized in the future.
+        """
         self._api_url = api_url
-        # Set the API key on initialization, from environment variable, or overwritten later
         self.api_key = api_key or os.environ.get(API_KEY_ENV_NAME)
+        self.rate_limit = RateLimit()
         # For internal references, can be refactored out if needed.
         self.services = {}
+        # Not used at the moment, can be refactored out if needed.
         self._versioned_services = {}
         for version, file_name in API_SERVICE_FILES:
             api_data = json.load(open(file_name))
@@ -47,10 +73,12 @@ class Client(object):
             if not parameters.get(param_name):
                 raise ApiParameterError('Missing required parameter: {}'.format(param_name))
 
-        # Execute API Call
+        # Prepare API call parameters
         request_uri = self.services[service_name]['uri'].format(**parameters)
         request_url = '{}{}'.format(self._api_url, request_uri)
         request_http_method = self.services[service_name]['httpMethod']
+
+        # Execute API Call
         # This can probably be simplified by calling `requests.request` directly,
         # but more testing will need to be done on parameters.
         if request_http_method == 'GET':
@@ -61,6 +89,11 @@ class Client(object):
             result = requests.delete(request_url, params=parameters)
         else:
             raise HttpMethodError('HTTP Method not implemented: [{}]'.format(request_http_method))
+
+        # Update rate limit information
+        self.rate_limit.limit = result.headers.get('X-RateLimit-Limit')
+        self.rate_limit.remaining = result.headers.get('X-RateLimit-Remaining')
+        self.rate_limit.reset = result.headers.get('X-RateLimit-Reset')
 
         if result.status_code == 401:
             raise HttpUnauthorized
