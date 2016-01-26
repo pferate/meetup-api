@@ -82,24 +82,24 @@ class Client(object):
         # This can probably be simplified by calling `requests.request` directly,
         # but more testing will need to be done on parameters.
         if request_http_method == 'GET':
-            result = requests.get(request_url, params=parameters)
+            response = requests.get(request_url, params=parameters)
         elif request_http_method == 'POST':
-            result = requests.post(request_url, data=parameters)
+            response = requests.post(request_url, data=parameters)
         elif request_http_method == 'DELETE':
-            result = requests.delete(request_url, params=parameters)
+            response = requests.delete(request_url, params=parameters)
         else:
             raise HttpMethodError('HTTP Method not implemented: [{}]'.format(request_http_method))
 
         # Update rate limit information
-        self.rate_limit.limit = result.headers.get('X-RateLimit-Limit')
-        self.rate_limit.remaining = result.headers.get('X-RateLimit-Remaining')
-        self.rate_limit.reset = result.headers.get('X-RateLimit-Reset')
+        self.rate_limit.limit = response.headers.get('X-RateLimit-Limit')
+        self.rate_limit.remaining = response.headers.get('X-RateLimit-Remaining')
+        self.rate_limit.reset = response.headers.get('X-RateLimit-Reset')
 
-        if result.status_code == 401:
+        if response.status_code == 401:
             raise HttpUnauthorized
-        if result.status_code == 404:
+        if response.status_code == 404:
             raise HttpNotFoundError
-        if result.status_code == 429:
+        if response.status_code == 429:
             raise HttpTooManyRequests
 
-        return MeetupObject(result.json())
+        return MeetupObject(response.json())
