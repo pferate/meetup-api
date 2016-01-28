@@ -95,18 +95,18 @@ class Client(object):
 
         # Check for valid method
         if service_name not in self.services:
-            raise exceptions.ApiMethodError('Unknown API Method [{}]'.format(service_name))
+            raise exceptions.ApiMethodError('Unknown API Method [{0}]'.format(service_name))
 
         # Check for Required Parameters
         param_dict = self.services[service_name]['parameters']
         required_params = [k for k, v in six.iteritems(param_dict) if v['required']]
         for param_name in required_params:
             if not parameters.get(param_name):
-                raise exceptions.ApiParameterError('Missing required parameter: {}'.format(param_name))
+                raise exceptions.ApiParameterError('Missing required parameter: {0}'.format(param_name))
 
         # Prepare API call parameters
         request_uri = self.services[service_name]['uri'].format(**parameters)
-        request_url = '{}{}'.format(self._api_url, request_uri)
+        request_url = '{0}{1}'.format(self._api_url, request_uri)
         request_http_method = self.services[service_name]['httpMethod']
 
         # Execute API Call
@@ -119,7 +119,7 @@ class Client(object):
         elif request_http_method == 'DELETE':
             response = requests.delete(request_url, params=parameters)
         else:
-            raise exceptions.HttpMethodError('HTTP Method not implemented: [{}]'.format(request_http_method))
+            raise exceptions.HttpMethodError('HTTP Method not implemented: [{0}]'.format(request_http_method))
 
         # Update rate limit information
         self.rate_limit.limit = response.headers.get('X-RateLimit-Limit')
@@ -132,7 +132,7 @@ class Client(object):
             raise exceptions.HttpNotFoundError
         if response.status_code == 429:
             if self.overlimit_wait:
-                sleep(int(self.rate_limit.reset))
+                sleep(1 + int(self.rate_limit.reset))
                 self._call(service_name, parameters)
             else:
                 raise exceptions.HttpTooManyRequests
