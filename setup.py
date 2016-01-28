@@ -1,9 +1,16 @@
 from setuptools import setup, find_packages
 
+from meetup import __version__
+
+package_data = {
+        'api_specification': ['api_specification/*.json']}
+
 setup(
-    name='meetup',
-    version='0.0.1',
+    name='meetup-api',
+    version=__version__,
     packages=find_packages(),
+    include_package_data=True,
+    package_data=package_data,
     url='https://github.com/pferate/meetup-api',
     license='MIT',
     author='Pat Ferate',
@@ -25,6 +32,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     keywords="meetup api",
-    install_requires=['six'],
+    install_requires=['requests', 'six'],
     tests_require=['pytest'],
 )
