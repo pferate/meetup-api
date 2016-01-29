@@ -87,10 +87,10 @@ class Client(object):
     def _call(self, service_name, parameters=None):
         if not self.api_key:
             raise exceptions.ApiKeyError('Meetup API key not set')
-        if not isinstance(parameters, dict):
-            raise exceptions.ApiParameterError('Parameters must be dict')
         if not parameters:
             parameters = {}
+        if not isinstance(parameters, dict):
+            raise exceptions.ApiParameterError('Parameters must be dict')
         parameters['key'] = self.api_key
 
         # Check for valid method
