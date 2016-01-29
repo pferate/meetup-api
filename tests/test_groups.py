@@ -1,7 +1,7 @@
 import pytest
 
 from meetup import exceptions
-from meetup.api import MeetupObject
+from meetup.api import Client, MeetupObject
 
 
 valid_groups = ['Meetup-API-Testing', 'PSPPython', 'Seattle-Data-Science', 'codefellows']
@@ -10,8 +10,7 @@ invalid_groups = ['foobarbaz', '-', '123']
 
 @pytest.fixture
 def api_client():
-    import meetup.api
-    return meetup.api.Client()
+    return Client()
 
 
 @pytest.mark.parametrize("group_name", valid_groups)
