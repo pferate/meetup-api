@@ -1,6 +1,3 @@
-import six
-
-
 class MeetupBaseException(Exception):
     """
     All Meetup exceptions inherit from this exception.
@@ -39,13 +36,8 @@ class HttpMethodError(ClientException):
 
 class MeetupHttpBaseException(MeetupBaseException):
     """
-    All Slumber HTTP Exceptions inherit from this exception.
+    All Meetup HTTP Exceptions inherit from this exception.
     """
-
-    def __init__(self, *args, **kwargs):
-        for key, value in six.iteritems(kwargs):
-            setattr(self, key, value)
-        super(MeetupHttpBaseException, self).__init__(*args)
 
 
 class HttpClientError(MeetupHttpBaseException):
