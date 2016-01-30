@@ -84,7 +84,7 @@ class Client(object):
                 # API Method descriptions.  Used as a helpful reference.
                 self.services[service_name] = service_details
 
-    def _call(self, service_name, parameters=None):
+    def _call(self, service_name, parameters=None, **kwargs):
         if not self.api_key:
             raise exceptions.ApiKeyError('Meetup API key not set')
         if not parameters:
@@ -92,6 +92,8 @@ class Client(object):
         if not isinstance(parameters, dict):
             raise exceptions.ApiParameterError('Parameters must be dict')
         parameters['key'] = self.api_key
+        for key, value in six.iteritems(kwargs):
+            parameters[key] = value
 
         # Check for valid method
         if service_name not in self.services:
