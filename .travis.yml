@@ -1,9 +1,16 @@
 language: python
 python: 3.5
 sudo: false
+env:
+  matrix:
+  - TOX_ENV=py26
+  - TOX_ENV=py27
+  - TOX_ENV=py34
+  - TOX_ENV=py35
+  - TOX_ENV=flake8
 install:
 - pip install tox
 script:
-- tox
+- tox -e $TOX_ENV
 notifications:
   email: false
