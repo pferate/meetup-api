@@ -1,7 +1,8 @@
+import os
 import pytest
 
 from meetup import exceptions
-from meetup.api import Client, MeetupObject
+from meetup.api import API_KEY_ENV_NAME, Client, MeetupObject
 
 
 @pytest.fixture
@@ -12,8 +13,8 @@ def api_client():
 @pytest.mark.incremental
 class TestApiKey:
     def test_environment_key(self, api_client):
-        # Same with invalid API Key
-        assert isinstance(api_client.GetDashboard(), MeetupObject)
+        # Compare object API key with environment variable
+        assert api_client.api_key == os.environ.get(API_KEY_ENV_NAME)
 
     def test_empty_key(self, api_client):
         # Undefined API Key should fail
