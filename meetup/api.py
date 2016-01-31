@@ -127,6 +127,9 @@ class Client(object):
         self.rate_limit.limit = response.headers.get('X-RateLimit-Limit')
         self.rate_limit.remaining = response.headers.get('X-RateLimit-Remaining')
         self.rate_limit.reset = response.headers.get('X-RateLimit-Reset')
+        print('{0}/{1} ({2} seconds remaining)'.format(self.rate_limit.remaining,
+                                                       self.rate_limit.limit,
+                                                       self.rate_limit.reset))
 
         if response.status_code == 401:
             raise exceptions.HttpUnauthorized
