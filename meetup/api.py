@@ -135,13 +135,17 @@ class Client(object):
             raise exceptions.HttpUnauthorized
         if response.status_code == 404:
             raise exceptions.HttpNotFoundError
-        if response.status_code == 429:
-            raise exceptions.HttpTooManyRequests(response.content)
 
         # If we have two or less remaining calls in the period, wait (if the wait flag is set).
         # I tried only waiting after a 429 error, and ended getting locked out doing parallel testing.
         if int(self.rate_limit.remaining) <= 2 and self.overlimit_wait:
             sleep(1 + int(self.rate_limit.reset))
-            self._call(service_name, parameters)
+
+        if response.status_code == 429:
+            if self.overlimit_wait:
+                # We should have already waited
+                self._call(service_name, parameters)
+            else:
+                raise exceptions.HttpTooManyRequests(response.content)
 
         return MeetupObject(response.json())
