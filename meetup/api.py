@@ -138,7 +138,8 @@ class Client(object):
 
         # If we have two or less remaining calls in the period, wait (if the wait flag is set).
         # I tried only waiting after a 429 error, and ended getting locked out doing parallel testing.
-        if int(self.rate_limit.remaining) <= 2 and self.overlimit_wait:
+        if int(self.rate_limit.remaining) <= 5 and self.overlimit_wait:
+            print('Sleeping for {0} seconds'.format(self.rate_limit.reset))
             sleep(1 + int(self.rate_limit.reset))
 
         if response.status_code == 429:
