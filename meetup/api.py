@@ -21,16 +21,15 @@ API_SERVICE_FILES = [
 class MeetupObject(object):
     """
     Generic Meetup Object generated from dict and keyword arguments.
+
+    Key/Values from dict are accessible from object as attributes (e.g. object.key)
+    Keyword arguments passed at initialization are also accessible in the same way.
+    Keyword values overwrite values from dict.
+
+    :param initial_data: Initial values in a dict
+    :param kwargs:       Additional key/values to set
     """
     def __init__(self, *initial_data, **kwargs):
-        """
-        Key/Values from dict are accessible from object as attributes (e.g. object.key)
-        Keyword arguments passed at initialization are also accessible in the same way.
-        Keyword values overwrite values from dict.
-
-        :param initial_data Initial values in a dict
-        :param kwargs       Additional key/values to set
-        """
         for dictionary in initial_data:
             for key, value in six.iteritems(dictionary):
                 setattr(self, key, value)
@@ -41,9 +40,14 @@ class MeetupObject(object):
 class RateLimit(object):
     """
     Rate limit information, as defined by Meetup.  This data is received in the response header.
+
+    =========   =====================   =========================================================================
+    Attribute   HTTP Header             Description
+    =========   =====================   =========================================================================
     limit       X-RateLimit-Limit       The maximum number of requests that can be made in a window of time
     remaining   X-RateLimit-Remaining   The remaining number of requests allowed in the current rate limit window
     reset       X-RateLimit-Reset       The number of seconds until the current rate limit window resets
+    =========   =====================   =========================================================================
     """
     limit = None
     remaining = None
@@ -54,19 +58,17 @@ class Client(object):
     """
     Meetup API Client.
 
+    There are 3 options for defining the API key prior to making API calls:
+
+    1. Pass it as a parameter (api_key)
+    2. Stored as an environment variable, if parameter is not defined. (Default: MEETUP_API_KEY)
+    3. Define it after the object is created. (client.api_key = 'my_secret_api_key')
+
+    :param api_key:         Meetup API Key, from https://secure.meetup.com/meetup_api/key/
+    :param api_url:         Meetup API URL,  Keeping it flexible so that it can be generalized in the future.
+    :param overlimit_wait:  Whether or not to wait and retry if over API request limit. (Default: True)
     """
-
     def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=True):
-        """
-        There are 3 options for defining the API key prior to making API calls:
-        1. Pass it as a parameter (api_key)
-        2. Stored as an environment variable, if parameter is not defined. (Default: MEETUP_API_KEY)
-        3. Define it after the object is created. (client.api_key = 'my_secret_api_key')
-
-        :param api_key:         Meetup API Key, from https://secure.meetup.com/meetup_api/key/
-        :param api_url:         Meetup API URL,  Keeping it flexible so that it can be generalized in the future.
-        :param overlimit_wait:  Whether or not to wait and retry if over API request limit. (Default: True)
-        """
         self._api_url = api_url
         self.api_key = api_key or os.environ.get(API_KEY_ENV_NAME)
         self.overlimit_wait = overlimit_wait
