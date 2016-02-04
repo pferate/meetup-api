@@ -10,9 +10,7 @@ The official `Meetup REST API documentation`_ has a complete list of available A
 Getting started
 ===============
 
-A quick start guide can be found [here](http://meetup-api.readthedocs.org/en/latest/getting_started.html).
-
-The latest documentation can also be found [here](http://meetup-api.readthedocs.org/en/latest/)
+Take a look at the `quick start`_ guide for information on getting started.
 
 License
 =======
@@ -42,6 +40,7 @@ SOFTWARE.
 .. _Meetup: http://www.meetup.com/
 .. _Meetup REST API documentation: http://www.meetup.com/meetup_api/
 .. _API Client Details: http://meetup-api.readthedocs.org/en/latest/meetup_api.html#api-client-details
+.. _quick start: http://meetup-api.readthedocs.org/en/latest/getting_started.html
 
 .. |build-status| image:: https://img.shields.io/travis/pferate/meetup-api.svg?style=flat
     :alt: build status
