@@ -18,13 +18,13 @@ API Classes
 
 .. _meetup_api_client_methods:
 
-API Client
-----------
+API Client Details
+------------------
 
 The following are dynamically generated methods for the :py:class:`meetup.api.Client` class.
 
-API Client Index
-^^^^^^^^^^^^^^^^
+API Client Method Index
+~~~~~~~~~~~~~~~~~~~~~~~
 .. hlist::
     :columns: 2
 
@@ -110,7 +110,7 @@ API Client Index
     - :py:meth:`GetVenues()<meetup.api.Client.GetVenues>`
 
 API Client Methods
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 .. py:class:: meetup.api.Client
 

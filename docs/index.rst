@@ -1,18 +1,36 @@
-.. Meetup API documentation master file, created by
-   sphinx-quickstart on Thu Jan 28 14:20:23 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Meetup API's documentation!
 ======================================
 
-Contents
---------
+.. _Meetup: http://www.meetup.com/
+.. _Meetup_Dev: http://www.meetup.com/meetup_api/
 
-- :ref:`meetup`
+meetup-api is a Python client for Meetup's RESTful API.  It is compatible with both Python 2 and Python 3.  Currently only API Key authentication is available (OAuth is planned for a future release).
 
-  - :ref:`meetup_api`
-  - :ref:`meetup_exceptions`
+.. _user-docs:
+
+.. toctree::
+   :maxdepth: 3
+   :caption: User Documentation
+
+   getting_started
+
+.. _package-docs:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Package Information
+
+   module_details
+
+.. _dev-docs:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Development Documentation
+
+   tests
+   changelog
+   license
 
 Indices and tables
 ------------------
