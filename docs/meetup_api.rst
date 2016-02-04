@@ -150,8 +150,6 @@ API Client Methods
     :param waitlisting: Waiting list status may be one of: auto, manual, off
     :param why: We should do this because... May not be longer than 250 characters.
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateEventComment(comment, event_id, in_reply_to, notifications)
 
     This method posts messages that appear under "Talk about this Meetup".
@@ -166,8 +164,6 @@ API Client Methods
     :param in_reply_to: If this comment is a reply, the ID of the comment being replied to
     :param notifications: Notification control for authorized member on this comment thread. "on" will result in notifications being sent. "off" will opt the member out of notifications for this comment thread. Defaults to "on" unless the member previous opted out of notifications on the thread.
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateEventCommentFlag(comment_id, reason)
 
     This method creates a spam report for comment content
@@ -179,8 +175,6 @@ API Client Methods
 
     :param comment_id: The id of the comment
     :param reason: Reason for flagging the comment. May be one of inappropriate, spam
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: CreateEventRating(attendee_count, event_id, rating)
 
@@ -194,8 +188,6 @@ API Client Methods
     :param event_id: The ID of the event to fetch ratings data for
     :param rating: The member's rating (either 1, 2, 3, 4, or 5)
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateGroupAbuseReports(urlname, type)
 
     Submits a new abuse report for a target group. Abuse reports will be followed up on by our Community support team.
@@ -208,8 +200,6 @@ API Client Methods
     :param urlname: None
     :type urlname: required
     :param type: A required identifier for type of abuse you are reporting. Acceptable values include graphic_content, harmful_activities, licensed_services, not_community, nudity, other, promotion_focus, violence
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: CreateGroupMemberApprovals(urlname, member, send_copy, welcome_message)
 
@@ -226,8 +216,6 @@ API Client Methods
     :param send_copy: Optional Boolean value indicating whether or not the org should receive a copy of the message sent to the approved members
     :param welcome_message: Optional message to send to the members being approved. If not provided, the groups default welcome message will be sent. Max message size is 2000
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateGroupPhoto(await, group_id, group_urlname, main, photo)
 
     Uploads a new Meetup Group photo. To change other Group settings use the [Group Edit](/meetup_api/docs/:urlname/#edit) endpoint
@@ -243,8 +231,6 @@ API Client Methods
     :param main: Set to 'true' to have this photo become the group's main photo. Set it to 'false' otherwise. Defaults to true
     :param photo: The photo, encoded as multipart/form-data. The maximum file size allowed is 10MB
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateGroupTopics(urlname, topic_id)
 
     Associates topics with a given Meetup Group. Limited to organizers of the group. OAuth authenticated requests require an additional [group_edit](/meetup_api/auth/#oauth2-scopes) permission.
@@ -257,8 +243,6 @@ API Client Methods
     :param urlname: None
     :type urlname: required
     :param topic_id: Comma-delimited list of topic ids to associate with group
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: CreateGroupVenues(urlname, address_1, address_2, city, country, hours, name, phone, state, visibility, web_url)
 
@@ -282,8 +266,6 @@ API Client Methods
     :param visibility: Optional value indicating the venues visibility to others. May be one of private or public. Defaults to 'public'
     :param web_url: Optional web url for the venue
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateMemberPhoto(await, main, photo, sync_matching_photo, sync_photo)
 
     Uploads a photo to be associated with a Member
@@ -299,8 +281,6 @@ API Client Methods
     :param sync_matching_photo: When set to true and main is set to true, this will replace all group profile photos matching the current photo with the provided replacement
     :param sync_photo: When set to true, this parameter will sync all of the group profile photos for the member with the provided photo_id
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateNotificationsRead(fields, since_id)
 
     Marks groups of [notifications](/meetup_api/docs/notifications/) as read.
@@ -311,8 +291,6 @@ API Client Methods
 
     :param fields: Request that additional fields (separated by commas) be included in the output.
     :param since_id: The id of the newest notification item, typically the first in the list returned by the notifications endpoint
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: CreatePhoto(await, caption, event_id, photo, photo_album_id)
 
@@ -329,8 +307,6 @@ API Client Methods
     :param photo: The photo, encoded as multipart/form-data. The maximum file size allowed is 10MB
     :param photo_album_id: Identifier of an existing photo album, which may be an event or group album
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreatePhotoAlbum(group_id, title)
 
     This method creates photo albums within a Meetup group
@@ -343,8 +319,6 @@ API Client Methods
     :param group_id: Group to create the album in
     :param title:  Title of the new album
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreatePhotoComment(comment, photo_id)
 
     This method posts comments that appear below photos
@@ -356,8 +330,6 @@ API Client Methods
 
     :param comment: The comment text
     :param photo_id: The photo related to this comment.
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: CreateProfile(answer_{qid}, group_id, group_urlname, intro, new_photo, photo_id, site_name, site_url)
 
@@ -377,8 +349,6 @@ API Client Methods
     :param site_name: Name of member's site. Max length is 32
     :param site_url: Link to member's site. Max length is 80
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateRecommendedGroupsIgnores(urlname)
 
     Provides a form of feed back by requesting to remove a group from future recommendations
@@ -390,8 +360,6 @@ API Client Methods
 
     :param urlname: None
     :type urlname: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: CreateRsvp(agree_to_refund, answer_{qid}, comments, event_id, guests, member_id, opt_to_pay, rsvp)
 
@@ -422,8 +390,6 @@ API Client Methods
     :param opt_to_pay: For events with fees, the authorized member may opt to pay as part of the RSVP request. This may be set to true or false
     :param rsvp: The RSVP setting - value must be either "yes", "no" or "waitlist"
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateSelfAbuseReports(comments, content_tag, member_id, type, url)
 
     Submits a new abuse report for a target member. Abuse reports will be followed up on by our Community support team.
@@ -439,8 +405,6 @@ API Client Methods
     :param type: A required identifier for type of abuse you are reporting. Acceptable values include abuse, copyright, dangerous, fake, harass, inappropriate, join, other, photo, spam
     :param url: An optional URL for the location of the reported content if one exists
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: CreateSelfBlocks(member_id, comments, report)
 
     Blocks a target member from various interactions with the authenticated member on the platform
@@ -455,8 +419,6 @@ API Client Methods
     :param comments: An optional string of text describing why you have chosen to block this member
     :param report: An optional value that represents a type of abuse the target member is being blocked for. Acceptable values include one of the following: fake, harass, inappropriate, spam
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: DeleteEvent(id)
 
     Deletes a specified meetup
@@ -468,8 +430,6 @@ API Client Methods
 
     :param id: None
     :type id: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: DeleteEventComment(id, fields)
 
@@ -484,8 +444,6 @@ API Client Methods
     :type id: required
     :param fields: comma-separate list of optional fields
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: DeleteEventCommentLike(id)
 
     Unlike a given Event comment
@@ -498,8 +456,6 @@ API Client Methods
     :param id: None
     :type id: required
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: DeleteEventCommentSubscribe(id)
 
     Unsubscribe to notifications for updates to a given comment thread
@@ -511,8 +467,6 @@ API Client Methods
 
     :param id: None
     :type id: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: DeleteGroupEventsWatchlist(id, urlname)
 
@@ -527,8 +481,6 @@ API Client Methods
     :type id: required
     :param urlname: None
     :type urlname: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: DeleteGroupMemberApprovals(urlname, anon, ban, explanation, member, send_copy)
 
@@ -547,8 +499,6 @@ API Client Methods
     :param member: Comma-delimited numeric pending member IDs. The maximum allowed is 200
     :param send_copy: Optional Boolean value indicating whether or to send a copy to the member issuing the decline. Default is true
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: DeleteGroupTopics(urlname, topic_id)
 
     Disassociates topics with a given Meetup Group. Limited to organizers of the group. OAuth authenticated requests require an additional [group_edit](/meetup_api/auth/#oauth2-scopes) permission.
@@ -562,8 +512,6 @@ API Client Methods
     :type urlname: required
     :param topic_id: Comma-delimited list of topic ids to disassociate with group
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: DeleteMemberPhoto(id)
 
     Delete the specified member photo
@@ -576,8 +524,6 @@ API Client Methods
     :param id: None
     :type id: required
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: DeletePhoto(id)
 
     Delete specified event photo
@@ -589,8 +535,6 @@ API Client Methods
 
     :param id: None
     :type id: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: DeleteProfile(gid, mid, exit_comment)
 
@@ -607,8 +551,6 @@ API Client Methods
     :type mid: required
     :param exit_comment: Optional message to the organizer when leaving
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: DeleteSelfBlocks(member_id)
 
     Unblocks a previously blocked member from various interactions with the authenticated member on the platform
@@ -620,8 +562,6 @@ API Client Methods
 
     :param member_id: None
     :type member_id: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: EditEvent(id, announce, announce_message, description, duration, email_reminders, group_id, guest_limit, host_instructions, hosts, how_to_find_us, lat, lon, name, publish_status, question_edit_{id}, question_{index}, rsvp_alerts, rsvp_close, rsvp_limit, rsvp_open, simple_html_description, time, venue_id, venue_visibility, waitlisting, why)
 
@@ -669,8 +609,6 @@ API Client Methods
     :param waitlisting: Waiting list status may be one of: auto, manual, off
     :param why: We should do this because... May not be longer than 250 characters.
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: EditEventCommentLike(id)
 
     Like a given Event comment
@@ -683,8 +621,6 @@ API Client Methods
     :param id: None
     :type id: required
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: EditEventCommentSubscribe(id)
 
     Subscribe to notifications on updates to a given comment thread
@@ -696,8 +632,6 @@ API Client Methods
 
     :param id: None
     :type id: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: EditGroup(add_topics, country, description, dryrun, ga_code, join_mode, list_addr, list_mode, name, photo_req, question_edit_{id}, question_{index}, questions_req, remove_topics, urlname, visibility, welcome_message, who, zip, {service}_uri)
 
@@ -729,8 +663,6 @@ API Client Methods
     :param zip: The ZIP code of the city
     :param {service}_uri: A URI for a social network service. Service must be one of facebook, flickr, linkedin, other, tumblr, twitter
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: EditGroupEventsAttendance(id, urlname, guests, headcount, member, status)
 
     Takes Member attendance for an Event. Limted for use by administrative members.
@@ -748,8 +680,6 @@ API Client Methods
     :param headcount: Sets the overall headcount for the event. This may not necessarily correlate with the list of attendees in this group if the event is part of a joint Meetup event
     :param member: A valid ID of member in the group
     :param status: An attendance status for the member. Must be one of: noshow, absent, attended
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: EditGroupEventsPayments(id, urlname, amount, member, paid_on, quantity)
 
@@ -769,8 +699,6 @@ API Client Methods
     :param paid_on: The time the payment was made in milliseconds from the epoc. Defaults to now
     :param quantity: The number of payments made. Defaults to 1
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: EditGroupEventsWatchlist(id, urlname)
 
     Add yourself to an event watch list to get notified when a spot becomes available
@@ -784,8 +712,6 @@ API Client Methods
     :type id: required
     :param urlname: None
     :type urlname: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: EditMember(id, add_topics, bio, bio_privacy, birthday, city, city_id, country, facebook_privacy, gender, groups_privacy, hometown, lang, lat, lon, messaging_pref, name, photo_id, photos_privacy, radius, remove_topics, sync_photo, topics_privacy, zip)
 
@@ -822,8 +748,6 @@ API Client Methods
     :param topics_privacy: Controls the visibility of the member's topics. May be one of visible, hidden
     :param zip: Valid zip code for city
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: EditProfile(gid, mid, add_role, answer_{qid}, intro, new_photo, photo_id, remove_role, site_name, site_url, title)
 
     Update a member's group profile
@@ -847,8 +771,6 @@ API Client Methods
     :param site_url: Link to member's site. Max length is 80
     :param title: An organizer-defined member title.
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetActivity(member_id, page_start)
 
     API method for retrieving the activity feed for a member's groups
@@ -859,8 +781,6 @@ API Client Methods
 
     :param member_id: Returns activity from this member's groups. Must be authenticated as this member
     :param page_start: Starting timestamp for item to return.
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetCategories(fields, member, shortname)
 
@@ -874,8 +794,6 @@ API Client Methods
     :param fields: Parameter for requesting optional response properties
     :param member: order by recommendations for authorized member (deprecated)
     :param shortname: (default order) ascending
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetCities(country, distance, lat, lon, query, radius, size, smart, state)
 
@@ -896,8 +814,6 @@ API Client Methods
     :param smart: Sort by size, but if a match is close to given lat/lon, float to top. Only works when query provided
     :param state: A valid state code for the given country, if the country has states
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetComments(ctime, group_id, group_urlname, groupnum, topic)
 
     API method for accessing meetup group comments
@@ -912,8 +828,6 @@ API Client Methods
     :param group_urlname: Return comments for the group with this custom URL path
     :param groupnum: Return comments for the group with given topic and number
     :param topic: Return comments for the group with given topic and number
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetConcierge(category_id, city, country, fields, lat, lon, page_token, radius, self_groups, state, text_format, time, topic_id, with_friends, zip)
 
@@ -945,8 +859,6 @@ API Client Methods
     :param with_friends: Boolean parameter. When set to true, events hosted by groups you have friends in will be recommended
     :param zip: A valid US zip code, limits the returned groups to those within radius miles
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetDashboard(fields)
 
     A dashboard of aggregated Meetup information for the authorized member
@@ -957,8 +869,6 @@ API Client Methods
     API Version: 3
 
     :param fields: Request that additional fields (separated by commas) be included in the output
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetEvent(id, fields, limited_events, text_format)
 
@@ -975,8 +885,6 @@ API Client Methods
     :param limited_events: Include limited event information for private groups that wish to expose only a small amount of information about their events. This includes just: id, name, utc_offset, time, duration, yes_rsvp_count, waitlist_count, group, visibility, timezone. Value must be true or false.
     :param text_format: Format of the description in the response, "html" or "plain". Defaults to "html"
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetEventComment(id, fields)
 
     Retrieve a single event comment or reply
@@ -990,8 +898,6 @@ API Client Methods
     :type id: required
     :param fields: comma-separate list of optional fields
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetEventCommentLikes(comment_id, created)
 
     Api for listing likes of a given event comment
@@ -1003,8 +909,6 @@ API Client Methods
 
     :param comment_id: Return likes for a given comment_id
     :param created: Order by the time the member liked like comment (default: descending)
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetEventComments(comment_id, event_id, fields, group_id, member_id, name, thread, time)
 
@@ -1024,8 +928,6 @@ API Client Methods
     :param thread: Order by comment threads, those with the most recent activity are listed first. Only one event may be provided and desc not supported. Also note that with this ordering, *replies* are excluded from pagination accounting. Only top-level comments will be capped at the page size.
     :param time: Order by the time that each rating was posted (default: descending)
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetEventRatings(event_id, member_id, rating, time)
 
     API method for accessing Meetup comments
@@ -1039,8 +941,6 @@ API Client Methods
     :param member_id: The ID of a member to filter ratings on
     :param rating: Order by the value for each rating posted
     :param time: Order by the time that each rating was posted
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetEvents(event_id, fields, group_domain, group_id, group_urlname, limited_events, member_id, rsvp, status, text_format, time, venue_id)
 
@@ -1063,8 +963,6 @@ API Client Methods
     :param text_format: Format of the description text, "html" or "plain". Defaults to "html"
     :param time: (default order) ascending
     :param venue_id: Multiple ids may be separated with commas
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetFindGroups(category, country, distance, fallback_suggestions, fields, filter, lat, location, lon, members, most_active, newest, radius, self_groups, text, upcoming_events, zip)
 
@@ -1099,8 +997,6 @@ API Client Methods
     :param upcoming_events: If true, filters text and category based searches on groups that have upcoming events. Defaults to false
     :param zip: Zipcode of location to limit search to
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetGroup(urlname, fields)
 
     Fetches a Meetup Group by urlname
@@ -1114,8 +1010,6 @@ API Client Methods
     :type urlname: required
     :param fields: A comma-delimited list of optional fields to append to the response
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetGroupBoards(urlname)
 
     Listings of Group discussion boards
@@ -1127,8 +1021,6 @@ API Client Methods
 
     :param urlname: None
     :type urlname: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetGroupBoardsDiscussions(bid, did, urlname)
 
@@ -1146,8 +1038,6 @@ API Client Methods
     :param urlname: None
     :type urlname: required
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetGroupEventsAttendance(id, urlname, filter, member)
 
     Lists attendance records for Meetup events. Limited for use by administrative members.
@@ -1164,8 +1054,6 @@ API Client Methods
     :param filter: A named filter to apply to the attendance list. These are roughly equivalent to the set of filters you will see in the attendance tool on the site. These filters correspond with attendance records as well as each member's original RSVP status. The filter value be one of: maybe, waitlist, yes, absent, all, attended, noshow, excused, no. The default is 'attended'. The 'absent' filter represents all members not in attendance including members with a 'noshow' status. An 'excused' absence is an absent member marked as such by an administrative member
     :param member: Raw text used to search for member by name. This may only be applied when the filter parameter is set to 'all'. The provided text must consist of at least 2 characters.
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetGroupSimilarGroups(urlname)
 
     Renders a list of similar groups
@@ -1178,8 +1066,6 @@ API Client Methods
     :param urlname: None
     :type urlname: required
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetGroupVenues(urlname)
 
     Returns venues a group has previously hosted events at
@@ -1191,8 +1077,6 @@ API Client Methods
 
     :param urlname: None
     :type urlname: required
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetGroups(category_id, city, country, domain, fields, group_id, group_urlname, groupnum, id, lat, location, lon, member_id, members, name, organizer_id, radius, state, topic, zip)
 
@@ -1224,8 +1108,6 @@ API Client Methods
     :param topic: Only return groups in the specified topic [one topic allowed]
     :param zip: A valid US zip code, limits the returned groups to those within radius miles.
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetMember(id, fields)
 
     Retrieve a single member
@@ -1238,8 +1120,6 @@ API Client Methods
     :param id: None
     :type id: required
     :param fields: comma-separate list of optional fields
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetMembers(fields, group_id, group_urlname, groupnum, joined, member_id, name, service, topic, visited)
 
@@ -1261,8 +1141,6 @@ API Client Methods
     :param topic: Return members for the group with given topic and number
     :param visited: member's most recent activity
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetNotifications(fields)
 
     Returns all recent Meetup notifications for the authorized member. To mark notifications read use [/notifications/read](/meetup_api/docs/notifications/read/) endpoint. To get the authenticated Member's current unread count, request it in an [HTTP header](/meetup_api/docs/#meta-headers).
@@ -1273,8 +1151,6 @@ API Client Methods
     API Version: 3
 
     :param fields: Request that additional fields (separated by commas) be included in the output.
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetOembed(maxwidth, url)
 
@@ -1295,8 +1171,6 @@ API Client Methods
 
     :param maxwidth: maximum width to display
     :param url: url of resource to be embedded
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetOpenEvents(and_text, category, city, country, distance, fields, lat, limited_events, lon, radius, state, status, text, text_format, time, topic, trending, zip)
 
@@ -1330,8 +1204,6 @@ API Client Methods
     :param trending: you will likely want to specify "desc=true" to get the best trending results first.
     :param zip: A valid US zip code, limits the returned groups to those within radius miles
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetOpenVenues(city, country, distance, fields, group_urlname, lat, lon, radius, rating, rating_count, state, text, zip)
 
     Searches for public venues within a given geo space. To search for specific venues that your group has used, use the [Venues](/meetup_api/docs/2/venues) method
@@ -1355,8 +1227,6 @@ API Client Methods
     :param text: Venues that contain the given term or terms somewhere in their content. Separate terms with " AND " for venues that have combined terms. Append a trailing * to treat this as a prefix search
     :param zip: A valid US zip code, limits the returned venues to those within radius miles
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetPhotoAlbums(event_id, group_id, photo_album_id, time, title, updated)
 
     This method returns photo albums associated with Meetup groups. To create albums, see the corresponding write method.
@@ -1373,8 +1243,6 @@ API Client Methods
     :param title: title of the album
     :param updated: album updated field
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetPhotoComments(fields, member_id, name, photo_id, time)
 
     This method returns comments on meetup photos. To post messages, see the corresponding write method
@@ -1389,8 +1257,6 @@ API Client Methods
     :param name: the name of the member
     :param photo_id: Return comments on these photos, separated by commas
     :param time: Order by the time that each comment was posted
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetPhotos(event_id, fields, group_id, group_urlname, member_id, photo_album_id, photo_id, tagged, time)
 
@@ -1411,8 +1277,6 @@ API Client Methods
     :param tagged: Tagged with members with these IDs, separated by commas
     :param time: creation date and time
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetProfile(gid, mid, fields)
 
     Retrieves a single group profile
@@ -1427,8 +1291,6 @@ API Client Methods
     :param mid: None
     :type mid: required
     :param fields: Request that additional fields (separated by commas) be included in the output
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetProfiles(fields, group_id, group_urlname, groupnum, interesting, joined, member_id, name, role, status, topic, updated, visited)
 
@@ -1453,8 +1315,6 @@ API Client Methods
     :param updated: profile updated field
     :param visited: last visit to group pages (default order)
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetRecommendedGroupTopics(exclude_topics, lang, other_topics, text)
 
     Recommends suggestions for group topics based on a text search or other topics
@@ -1467,8 +1327,6 @@ API Client Methods
     :param lang: Defines a language preference for ordering results. Valid values are frptitdeesen_us. You may also substitute this with the Accept-Language header
     :param other_topics: A comma-delimited list of topic ids to inform recommendations
     :param text: Free form text search
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetRecommendedGroups(category, country, fields, instant_join_only, lat, location, lon, radius, topic_id, zip)
 
@@ -1489,8 +1347,6 @@ API Client Methods
     :param radius: Radius in miles. May be 0.0-100.0, 'global' or 'smart', a dynamic radius based on the number of active groups in the area
     :param topic_id: Comma delimited list of up to 100 topic ids to help inform recommendations
     :param zip: Zip code you are searching for recommendations in
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetRecommendedVenues(category, country, group_id, group_urlname, lat, location, lon, min_groups, radius, used_between, zip)
 
@@ -1513,8 +1369,6 @@ API Client Methods
     :param used_between: Return venues that have been used within the given time range, defined by two times separated with a single comma. Each end of the range may be specified with relative dates, such as "1m" for one month from now, or by absolute time in milliseconds since the epoch. If an endpoint is omitted, the range is unbounded on that end. The default value is unbounded on both ends (though restricted to the search window described above).
     :param zip: Zip code you are searching for recommendations in
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetRsvp(id, fields)
 
     Retrieve a single RSVP
@@ -1527,8 +1381,6 @@ API Client Methods
     :param id: None
     :type id: required
     :param fields: Request that additional fields (separated by commas) be included in the output
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetRsvps(event, event_id, fields, name, rsvp, social)
 
@@ -1546,8 +1398,6 @@ API Client Methods
     :param rsvp: Filters response on RSVP status. "yes" if member RSVP'd yes otherwise "no"
     :param social: social connections of the authenticated member
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetSelfBlocks(member_id)
 
     Checks the block status for a target member relative to the authenticated member
@@ -1560,8 +1410,6 @@ API Client Methods
     :param member_id: None
     :type member_id: required
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetStatus()
 
     Returns the current API service status
@@ -1571,8 +1419,6 @@ API Client Methods
 
     API Version: 3
 
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetTopicCategories(fields, lat, lon, radius, shortname)
 
@@ -1589,8 +1435,6 @@ API Client Methods
     :param radius: Use a given lat/lon/radius (miles) to search best_topics for instead of using the member's lat/lon.  When present, all three are required.
     :param shortname: (default order) ascending
 
-.. py:class:: meetup.api.Client
-
     .. py:method:: GetTopics(alertees, member_id, members, name, search, topic)
 
     API method for accessing meetup topics
@@ -1606,8 +1450,6 @@ API Client Methods
     :param name: the topic name
     :param search: Return topics related to a list of search terms [separate search keywords with +'s]
     :param topic: the topic key
-
-.. py:class:: meetup.api.Client
 
     .. py:method:: GetVenues(distance, event_id, fields, group_id, group_urlname, rating, rating_count, venue_id)
 
