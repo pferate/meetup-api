@@ -2,9 +2,11 @@ Welcome to Meetup API's documentation!
 ======================================
 
 .. _Meetup: http://www.meetup.com/
-.. _Meetup_Dev: http://www.meetup.com/meetup_api/
+.. _API: http://www.meetup.com/meetup_api/
 
-meetup-api is a Python client for Meetup's RESTful API.  It is compatible with both Python 2 and Python 3.  Currently only API Key authentication is available (OAuth is planned for a future release).
+.. Inline linking was needed here due to the apostrophe.
+
+meetup-api is a Python client for `Meetup's <http://www.meetup.com/>`_ RESTful `API`_.  It is compatible with both Python 2 and Python 3.  Currently only API Key authentication is available (OAuth is planned for a future release).
 
 .. _user-docs:
 
@@ -37,5 +39,3 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
-
