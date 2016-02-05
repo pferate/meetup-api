@@ -15,12 +15,10 @@ For more information, take a look at the `Getting Started`_ section of the docum
 Installation
 ------------
 
-Assuming you have Python_ already, install the dependencies using ``pip``, then install the package:
+Assuming you have Python_ already, install the package using ``pip``:
 
 .. code-block:: bash
 
-    $ cd /path/to/meetup-api
-    $ pip install -r requirements.txt
     $ pip install meetup-api
 
 Initialize Client and Execute API Call

@@ -11,14 +11,7 @@ Meetup API requires the following packages installed:
 - requests
 - six
 
-Assuming you have Python_ already, install the dependencies using ``pip``:
-
-.. code-block:: bash
-
-    $ cd /path/to/meetup-api
-    $ pip install -r requirements.txt
-
-Once the dependencies have been met, install the package:
+Assuming you have Python_ already, install the package using ``pip``:
 
 .. code-block:: bash
 
