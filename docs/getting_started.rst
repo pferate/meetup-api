@@ -76,7 +76,9 @@ Execute API Calls
     <class 'meetup.api.MeetupObject'>
     >>> 
     >>> group_info.__dict__.keys()
-    dict_keys(['who', 'join_mode', 'link', 'created', 'country', 'name', 'id', 'visibility', 'state', 'urlname', 'city', 'lat', 'timezone', 'members', 'lon', 'description', 'organizer', 'category', 'next_event', 'group_photo'])
+    dict_keys(['who', 'join_mode', 'link', 'created', 'country', 'name', 'id', 'visibility',
+               'state', 'urlname', 'city', 'lat', 'timezone', 'members', 'lon', 'description',
+               'organizer', 'category', 'next_event', 'group_photo'])
     >>> 
     >>> group_info.id
     1556336

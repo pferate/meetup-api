@@ -40,7 +40,9 @@ Initialize Client and Execute API Call
     <class 'meetup.api.MeetupObject'>
     >>> 
     >>> group_info.__dict__.keys()
-    dict_keys(['who', 'join_mode', 'link', 'created', 'country', 'name', 'id', 'visibility', 'state', 'urlname', 'city', 'lat', 'timezone', 'members', 'lon', 'description', 'organizer', 'category', 'next_event', 'group_photo'])
+    dict_keys(['who', 'join_mode', 'link', 'created', 'country', 'name', 'id', 'visibility',
+               'state', 'urlname', 'city', 'lat', 'timezone', 'members', 'lon', 'description',
+               'organizer', 'category', 'next_event', 'group_photo'])
     >>> 
     >>> group_info.id
     1556336
@@ -51,7 +53,7 @@ Initialize Client and Execute API Call
     >>> group_info.link
     'http://www.meetup.com/Meetup-API-Testing/'
 
-For a full listing of implemented API methods, take a look at the `API Client Details`.
+For a full listing of implemented API methods, take a look at the `API Client Details`_.
 
 License
 =======
