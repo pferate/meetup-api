@@ -22,7 +22,7 @@ Once the dependencies have been met, install the package:
 
 .. code-block:: bash
 
-    $ python setup.py install
+    $ pip install meetup-api
 
 Usage
 -----

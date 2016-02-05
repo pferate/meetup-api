@@ -21,7 +21,7 @@ Assuming you have Python_ already, install the dependencies using ``pip``, then 
 
     $ cd /path/to/meetup-api
     $ pip install -r requirements.txt
-    $ python setup.py install
+    $ pip install meetup-api
 
 Initialize Client and Execute API Call
 --------------------------------------
