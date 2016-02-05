@@ -1,7 +1,7 @@
 API Client for Meetup
 =====================
 
-|build-status| |docs|
+|pypi-version| |build-status| |docs| |python-versions| |license|
 
 A Python API client for Meetup_.
 
@@ -85,7 +85,7 @@ SOFTWARE.
 .. _Getting Started: http://meetup-api.readthedocs.org/en/latest/getting_started.html
 
 .. |build-status| image:: https://img.shields.io/travis/pferate/meetup-api.svg?style=flat
-    :alt: build status
+    :alt: Build Status
     :scale: 100%
     :target: https://travis-ci.org/pferate/meetup-api
 
@@ -93,3 +93,18 @@ SOFTWARE.
     :alt: Documentation Status
     :scale: 100%
     :target: https://meetup-api.readthedocs.org/en/latest/?badge=latest
+
+.. |pypi-version| image:: https://img.shields.io/pypi/v/meetup-api.svg
+    :target: https://pypi.python.org/pypi/meetup-api/
+    :alt: Latest Version
+    :scale: 100%
+
+.. |python-versions| image:: https://img.shields.io/pypi/pyversions/meetup-api.svg
+    :target: https://pypi.python.org/pypi/meetup-api/
+    :alt: Python Versions
+    :scale: 100%
+
+.. |license| image:: https://img.shields.io/pypi/l/meetup-api.svg
+    :target: https://pypi.python.org/pypi/meetup-api/
+    :alt: License
+    :scale: 100%
