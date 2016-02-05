@@ -80,6 +80,7 @@ SOFTWARE.
 
 .. _Meetup: http://www.meetup.com/
 .. _Meetup REST API documentation: http://www.meetup.com/meetup_api/
+.. _Python: https://www.python.org/
 .. _API Client Details: http://meetup-api.readthedocs.org/en/latest/meetup_api.html#api-client-details
 .. _Getting Started: http://meetup-api.readthedocs.org/en/latest/getting_started.html
 
