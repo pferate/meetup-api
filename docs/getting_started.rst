@@ -34,7 +34,7 @@ To initialize your Meetup API Client, you will need to import the Client class a
 
 Three ways to assign your API key (in order of precedence):
 
-1. Assign to attribute::
+1. Assign to attribute:
 
 .. code-block:: python
 
@@ -42,14 +42,14 @@ Three ways to assign your API key (in order of precedence):
     >>> client = meetup.api.Client()
     >>> client.api_key = 'my_special_api_key_value'
 
-2. Assign at initialization::
+2. Assign at initialization:
 
 .. code-block:: python
 
     >>> import meetup.api
     >>> client = meetup.api.Client('my_special_api_key_value')
 
-3. Retrieved from environment variable::
+3. Retrieved from environment variable:
 
 .. code-block:: bash
 
