@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 from meetup import __version__
 
 package_data = {
-        'api_specification': ['api_specification/*.json']}
+    'api_specification': ['api_specification/*.json']}
 
 setup(
     name='meetup-api',
@@ -18,7 +18,7 @@ setup(
     description='Python API for Meetup',
     long_description='Python API for Meetup',
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
