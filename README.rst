@@ -7,10 +7,51 @@ A Python API client for Meetup_.
 
 The official `Meetup REST API documentation`_ has a complete list of available API methods and their descriptions.  A listing of implemented API methods is documented at `API Client Details`_.
 
-Getting started
+Quick Start
 ===============
 
-Take a look at the `quick start`_ guide for information on getting started.
+For more information, take a look at the `Getting Started`_ section of the documentation.
+
+Installation
+------------
+
+Assuming you have Python_ already, install the dependencies using ``pip``, then install the package:
+
+.. code-block:: bash
+
+    $ cd /path/to/meetup-api
+    $ pip install -r requirements.txt
+    $ python setup.py install
+
+Initialize Client and Execute API Call
+--------------------------------------
+
+.. code-block:: python
+
+    >>> import meetup.api
+    >>> client = meetup.api.Client('my_special_api_key_value')
+    >>> 
+    >>> type(client)
+    <class 'meetup.api.Client'>
+    >>> 
+    >>> group_info = client.GetGroup({'urlname': 'Meetup-API-Testing'})
+    >>> 
+    >>> type(group_info)
+    <class 'meetup.api.MeetupObject'>
+    >>> 
+    >>> group_info.__dict__.keys()
+    dict_keys(['who', 'join_mode', 'link', 'created', 'country', 'name', 'id', 'visibility', 'state', 'urlname', 'city', 'lat', 'timezone', 'members', 'lon', 'description', 'organizer', 'category', 'next_event', 'group_photo'])
+    >>> 
+    >>> group_info.id
+    1556336
+    >>> 
+    >>> group_info.name
+    'Meetup API Testing Sandbox'
+    >>> 
+    >>> group_info.link
+    'http://www.meetup.com/Meetup-API-Testing/'
+
+For a full listing of implemented API methods, take a look at the `API Client Details`.
 
 License
 =======
@@ -40,7 +81,7 @@ SOFTWARE.
 .. _Meetup: http://www.meetup.com/
 .. _Meetup REST API documentation: http://www.meetup.com/meetup_api/
 .. _API Client Details: http://meetup-api.readthedocs.org/en/latest/meetup_api.html#api-client-details
-.. _quick start: http://meetup-api.readthedocs.org/en/latest/getting_started.html
+.. _Getting Started: http://meetup-api.readthedocs.org/en/latest/getting_started.html
 
 .. |build-status| image:: https://img.shields.io/travis/pferate/meetup-api.svg?style=flat
     :alt: build status
