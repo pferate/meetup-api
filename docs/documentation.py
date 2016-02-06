@@ -1,10 +1,30 @@
 import json
 import six
+from functools import cmp_to_key
+from operator import itemgetter as ig
 
 from meetup.api import API_SERVICE_FILES
-from meetup.util import multikeysort
 
 OMIT_SERVICE = ['CreateBatch', 'Widget', 'WidgetQuery']
+
+
+def cmp(a, b):
+    return (a > b) - (a < b)
+
+
+def multikeysort(items, columns):
+    comparers = [
+        ((ig(col[1:].strip()), -1) if col.startswith('-') else (ig(col.strip()), 1))
+        for col in columns
+    ]
+
+    def comparer(left, right):
+        comparer_iter = (
+            cmp(fn(left), fn(right)) * mult
+            for fn, mult in comparers
+        )
+        return next((result for result in comparer_iter if result), 0)
+    return sorted(items, key=cmp_to_key(comparer))
 
 
 def api_calls_to_rst(service_dict):
@@ -18,7 +38,7 @@ def api_calls_to_rst(service_dict):
         'page': 'The page size (maximum number of results in each response) to use on the results',
         'desc': 'Reverses the sorting order, when you include the parameter "desc=desc" or "desc=true"',
     }
-    output = []
+    output = ['.. py:class:: meetup.api.Client\n']
     for service_name in sorted(six.iterkeys(service_dict)):
         service_details = service_dict.get(service_name)
         parameters = []
@@ -34,8 +54,6 @@ def api_calls_to_rst(service_dict):
         parameters = multikeysort(parameters, ['-required', 'name'])
 
         params = ', '.join([param['name'] for param in parameters])
-        service_output.append('.. py:class:: meetup.api.Client')
-        service_output.append('')
         service_output.append('    .. py:method:: {func_name}({params})'.format(func_name=service_name,
                                                                                 params=params))
         service_output.append('\n    {0}'.format(service_details.get('summary')))
@@ -78,7 +96,8 @@ def api_calls_to_rst(service_dict):
     return output
 
 
-if __name__ == '__main__':
+def generate_output():
+    output = ''
     services = {}
     for version, file_name in API_SERVICE_FILES:
         api_data = json.load(open(file_name))
@@ -86,7 +105,7 @@ if __name__ == '__main__':
             if service_name not in OMIT_SERVICE:
                 services[service_name] = service_details
     api_method_docs = api_calls_to_rst(services)
-    print("""
+    output += """
 API Client
 ----------
 
@@ -96,13 +115,18 @@ API Client Index
 ^^^^^^^^^^^^^^^^
 .. hlist::
     :columns: 2
-""")
+"""
 
     for service_name in sorted(six.iterkeys(services)):
-        print('    - :py:meth:`{0}()<meetup.api.Client.{0}>`'.format(service_name))
+        output += '    - :py:meth:`{0}()<meetup.api.Client.{0}>`'.format(service_name)
 
-    print("""
+    output += """
 API Client Methods
 ^^^^^^^^^^^^^^^^^^
-""")
-    print('\n'.join(api_method_docs))
+"""
+    output += '\n'.join(api_method_docs)
+    return output
+
+
+if __name__ == '__main__':
+    print(generate_output())
