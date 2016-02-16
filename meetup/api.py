@@ -29,6 +29,7 @@ class MeetupObject(object):
     :param initial_data: Initial values in a dict
     :param kwargs:       Additional key/values to set
     """
+
     def __init__(self, *initial_data, **kwargs):
         for dictionary in initial_data:
             for key, value in six.iteritems(dictionary):
@@ -49,6 +50,7 @@ class RateLimit(object):
     reset       X-RateLimit-Reset       The number of seconds until the current rate limit window resets
     =========   =====================   =========================================================================
     """
+
     limit = None
     remaining = None
     reset = None
@@ -68,10 +70,12 @@ class Client(object):
     :param api_url:         Meetup API URL,  Keeping it flexible so that it can be generalized in the future.
     :param overlimit_wait:  Whether or not to wait and retry if over API request limit. (Default: True)
     """
+
     def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=True):
         self._api_url = api_url
         self.api_key = api_key or os.environ.get(API_KEY_ENV_NAME)
         self.overlimit_wait = overlimit_wait
+        self.session = requests.Session()
         self.rate_limit = RateLimit()
         # For internal references, can be refactored out if needed.
         self.services = {}
@@ -117,11 +121,11 @@ class Client(object):
         # This can probably be simplified by calling `requests.request` directly,
         # but more testing will need to be done on parameters.
         if request_http_method == 'GET':
-            response = requests.get(request_url, params=parameters)
+            response = self.session.get(request_url, params=parameters)
         elif request_http_method == 'POST':
-            response = requests.post(request_url, data=parameters)
+            response = self.session.post(request_url, data=parameters)
         elif request_http_method == 'DELETE':
-            response = requests.delete(request_url, params=parameters)
+            response = self.session.delete(request_url, params=parameters)
         else:
             raise exceptions.HttpMethodError('HTTP Method not implemented: [{0}]'.format(request_http_method))
 
