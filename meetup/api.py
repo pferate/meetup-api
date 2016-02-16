@@ -16,6 +16,7 @@ API_SERVICE_FILES = [
     ('v2', os.path.join(API_SPEC_DIR, 'meetup_v2_services.json')),
     ('v3', os.path.join(API_SPEC_DIR, 'meetup_v3_services.json')),
 ]
+DEFAULT_WAIT_TIME = 30
 
 
 class MeetupObject(object):
@@ -145,8 +146,12 @@ class Client(object):
         # If we have two or less remaining calls in the period, wait (if the wait flag is set).
         # I tried only waiting after a 429 error, and ended getting locked out doing parallel testing.
         if int(self.rate_limit.remaining) <= 5 and self.overlimit_wait:
-            print('Sleeping for {0} seconds'.format(self.rate_limit.reset))
-            sleep(1 + int(self.rate_limit.reset))
+            if self.rate_limit.reset:
+                sleep_time = 1 + int(self.rate_limit.reset)
+            else:
+                sleep_time = DEFAULT_WAIT_TIME
+            print('Sleeping for {0} seconds'.format(sleep_time))
+            sleep(sleep_time)
 
         if response.status_code == 429:
             if self.overlimit_wait:
