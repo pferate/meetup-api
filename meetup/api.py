@@ -19,6 +19,26 @@ API_SERVICE_FILES = [
 DEFAULT_WAIT_TIME = 30
 
 
+class MeetupObjectList(list):
+    """
+    A custom, iterative list for MeetupObjects.
+
+    Items are stored as raw, jsonified API Responses.  Items are converted to MeetupObjects on the fly.
+    """
+    def __init__(self, initial_list):
+        self.items = initial_list
+
+    def __len__(self):
+        return len(self.items)
+
+    def __getitem__(self, key):
+        return MeetupObject(self.items[key])
+
+    def __iter__(self):
+        for item in self.items:
+            yield MeetupObject(item)
+
+
 class MeetupObject(object):
     """
     Generic Meetup Object generated from dict and keyword arguments.
@@ -160,4 +180,8 @@ class Client(object):
             else:
                 raise exceptions.HttpTooManyRequests(response.content)
 
-        return MeetupObject(response.json())
+        jsonified = response.json()
+        if isinstance(jsonified, list):
+            return MeetupObjectList(jsonified)
+        else:
+            return MeetupObject(jsonified)
