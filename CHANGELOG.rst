@@ -7,6 +7,11 @@
 Changelog
 ---------
 
+v0.1.1 2016-03-03
+=================
+
+  * Adding MeetupObjectList, for handling multiple MeetupObjects
+
 v0.1 2016-02-04
 =================
 
