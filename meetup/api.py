@@ -92,7 +92,7 @@ class Client(object):
     :param overlimit_wait:  Whether or not to wait and retry if over API request limit. (Default: True)
     """
 
-    def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=True):
+    def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=True, overlimit_msg=True):
         self._api_url = api_url
         self.api_key = api_key or os.environ.get(API_KEY_ENV_NAME)
         self.overlimit_wait = overlimit_wait
@@ -154,9 +154,10 @@ class Client(object):
         self.rate_limit.limit = response.headers.get('X-RateLimit-Limit')
         self.rate_limit.remaining = response.headers.get('X-RateLimit-Remaining')
         self.rate_limit.reset = response.headers.get('X-RateLimit-Reset')
-        print('{0}/{1} ({2} seconds remaining)'.format(self.rate_limit.remaining,
-                                                       self.rate_limit.limit,
-                                                       self.rate_limit.reset))
+        if overlimit_msg:
+            print('{0}/{1} ({2} seconds remaining)'.format(self.rate_limit.remaining,
+                                                           self.rate_limit.limit,
+                                                           self.rate_limit.reset))
 
         if response.status_code == 401:
             raise exceptions.HttpUnauthorized
@@ -172,7 +173,10 @@ class Client(object):
                 sleep_time = 1 + int(self.rate_limit.reset)
             else:
                 sleep_time = DEFAULT_WAIT_TIME
-            print('Sleeping for {0} seconds'.format(sleep_time))
+            
+            if overlimit_msg:
+                print('Sleeping for {0} seconds'.format(sleep_time))
+            
             sleep(sleep_time)
 
         if response.status_code == 429:
