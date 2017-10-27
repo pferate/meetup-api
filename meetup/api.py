@@ -162,6 +162,8 @@ class Client(object):
             raise exceptions.HttpUnauthorized
         if response.status_code == 404:
             raise exceptions.HttpNotFoundError
+        if response.status_code == 410:
+            raise exceptions.HttpNotAccessibleError
 
         # If we have two or less remaining calls in the period, wait (if the wait flag is set).
         # I tried only waiting after a 429 error, and ended getting locked out doing parallel testing.

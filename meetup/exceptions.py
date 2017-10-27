@@ -58,6 +58,12 @@ class HttpNotFoundError(HttpClientError):
     """
 
 
+class HttpNotAccessibleError(HttpClientError):
+    """
+    Called when the server sends a 410 error.
+    """
+
+
 class HttpTooManyRequests(HttpClientError):
     """
     Called when the server sends a 429 error (when you've gone over your request rate limit)
