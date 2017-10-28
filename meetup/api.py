@@ -1,5 +1,6 @@
 from functools import partial
 import json
+import logging
 import os
 import requests
 import six
@@ -17,6 +18,24 @@ API_SERVICE_FILES = [
     ('v3', os.path.join(API_SPEC_DIR, 'meetup_v3_services.json')),
 ]
 DEFAULT_WAIT_TIME = 30
+
+# create logger
+logger = logging.getLogger('meetup_api_client')
+logger.setLevel(logging.WARNING)
+
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+# create formatter
+# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter('%(name)s:%(levelname)s:%(message)s')
+
+# add formatter to ch
+ch.setFormatter(formatter)
+
+# add ch to logger
+logger.addHandler(ch)
 
 
 class MeetupObjectList(list):
@@ -92,7 +111,7 @@ class Client(object):
     :param overlimit_wait:  Whether or not to wait and retry if over API request limit. (Default: True)
     """
 
-    def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=True, overlimit_msg=True):
+    def __init__(self, api_key=None, api_url=API_DEFAULT_URL, overlimit_wait=True):
         self._api_url = api_url
         self.api_key = api_key or os.environ.get(API_KEY_ENV_NAME)
         self.overlimit_wait = overlimit_wait
@@ -154,10 +173,9 @@ class Client(object):
         self.rate_limit.limit = response.headers.get('X-RateLimit-Limit')
         self.rate_limit.remaining = response.headers.get('X-RateLimit-Remaining')
         self.rate_limit.reset = response.headers.get('X-RateLimit-Reset')
-        if overlimit_msg:
-            print('{0}/{1} ({2} seconds remaining)'.format(self.rate_limit.remaining,
-                                                           self.rate_limit.limit,
-                                                           self.rate_limit.reset))
+        logger.debug('{0}/{1} ({2} seconds remaining)'.format(self.rate_limit.remaining,
+                                                              self.rate_limit.limit,
+                                                              self.rate_limit.reset))
 
         if response.status_code == 401:
             raise exceptions.HttpUnauthorized
@@ -173,13 +191,11 @@ class Client(object):
                 sleep_time = 1 + int(self.rate_limit.reset)
             else:
                 sleep_time = DEFAULT_WAIT_TIME
-            
-            if overlimit_msg:
-                print('Sleeping for {0} seconds'.format(sleep_time))
-            
+            logger.warning('Approaching the rate limit.  Sleeping for {0} seconds'.format(sleep_time))
             sleep(sleep_time)
 
         if response.status_code == 429:
+            logger.error('Request limit exceeded.')
             if self.overlimit_wait:
                 # We should have already waited
                 self._call(service_name, parameters)
