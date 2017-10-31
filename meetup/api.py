@@ -177,12 +177,11 @@ class Client(object):
                                                               self.rate_limit.limit,
                                                               self.rate_limit.reset))
 
-        if response.status_code == 401:
-            raise exceptions.HttpUnauthorized
-        if response.status_code == 404:
-            raise exceptions.HttpNotFoundError
-        if response.status_code == 410:
-            raise exceptions.HttpNotAccessibleError
+        # We handle 429 (Too Many Requests) errors down below by sleeping for the cool down time, then trying again.
+        # Raise an exception for any other 4xx or 5xx errors here
+        # TODO: Optimize this logic
+        if response.status_code != requests.codes.too_many_requests:
+            response.raise_for_status()
 
         # If we have two or less remaining calls in the period, wait (if the wait flag is set).
         # I tried only waiting after a 429 error, and ended getting locked out doing parallel testing.
@@ -194,7 +193,7 @@ class Client(object):
             logger.warning('Approaching the rate limit.  Sleeping for {0} seconds'.format(sleep_time))
             sleep(sleep_time)
 
-        if response.status_code == 429:
+        if response.status_code == requests.codes.too_many_requests:
             logger.error('Request limit exceeded.')
             if self.overlimit_wait:
                 # We should have already waited

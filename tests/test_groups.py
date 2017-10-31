@@ -1,6 +1,6 @@
 import pytest
+from requests import HTTPError
 
-from meetup import exceptions
 from meetup.api import Client, MeetupObject
 
 
@@ -22,14 +22,16 @@ def test_get_valid_group(api_client, group_name):
 
 @pytest.mark.parametrize("group_name", invalid_groups)
 def test_get_invalid_group(api_client, group_name):
-    with pytest.raises(exceptions.HttpNotFoundError):
+    with pytest.raises(HTTPError) as excinfo:
         api_client.GetGroup({'urlname': group_name})
+    assert '404 Client Error' in str(excinfo.value)
 
 
 @pytest.mark.parametrize("group_name", inaccessible_groups)
 def test_get_inaccessible_group(api_client, group_name):
-    with pytest.raises(exceptions.HttpNotAccessibleError):
+    with pytest.raises(HTTPError) as excinfo:
         api_client.GetGroup({'urlname': group_name})
+    assert '410 Client Error' in str(excinfo.value)
 
 
 @pytest.mark.parametrize("group_name", valid_groups)

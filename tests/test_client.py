@@ -1,5 +1,6 @@
 import os
 import pytest
+from requests import HTTPError
 
 from meetup import exceptions
 from meetup.api import API_KEY_ENV_NAME, Client, MeetupObject
@@ -25,8 +26,9 @@ class TestApiKey:
     def test_invalid_key(self, api_client):
         # Same with invalid API Key
         api_client.api_key = 'foobarbaz'
-        with pytest.raises(exceptions.HttpUnauthorized):
+        with pytest.raises(HTTPError) as excinfo:
             api_client.GetDashboard()
+        assert '401 Client Error' in str(excinfo.value)
 
 
 @pytest.mark.incremental
