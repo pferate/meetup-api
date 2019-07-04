@@ -1,5 +1,5 @@
 # MEETUP API Methods
-[Source](http://www.meetup.com/meetup_api/docs/)
+[Source](https://www.meetup.com/meetup_api/docs/)
 
 ##v3 abuse
 

@@ -166,7 +166,7 @@
             },
             "summary": "oEmbed implementation",
             "uri": "/oembed",
-            "notes": "\nThis method does not require authentication. It requires only a url parameter and responds according to the [OEmbed specification](http://www.oembed.com/). Any of the following base URLs may refer to embeddable content:\n\n* http://www.meetup.com/\n* http://meetup.com/\n* http://meetu.ps/\n\nAn optional __maxwidth__ parameter may be provided.\n"
+            "notes": "\nThis method does not require authentication. It requires only a url parameter and responds according to the [OEmbed specification](http://www.oembed.com/). Any of the following base URLs may refer to embeddable content:\n\n* https://www.meetup.com/\n* https://meetup.com/\n* https://meetu.ps/\n\nAn optional __maxwidth__ parameter may be provided.\n"
         },
         "GetTopics": {
             "version": "1",

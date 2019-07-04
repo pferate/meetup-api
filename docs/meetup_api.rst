@@ -1158,9 +1158,9 @@ API Client Methods
     
     This method does not require authentication. It requires only a url parameter and responds according to the [OEmbed specification](http://www.oembed.com/). Any of the following base URLs may refer to embeddable content:
     
-    * http://www.meetup.com/
-    * http://meetup.com/
-    * http://meetu.ps/
+    * https://www.meetup.com/
+    * https://meetup.com/
+    * https://meetu.ps/
     
     An optional __maxwidth__ parameter may be provided.
     

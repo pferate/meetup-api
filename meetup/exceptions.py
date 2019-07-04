@@ -10,9 +10,9 @@ class ClientException(MeetupBaseException):
     """
 
 
-class ApiKeyError(ClientException):
+class TokenError(ClientException):
     """
-    There is a problem with the client API key.
+    There is a problem with the client OAuth token.
     """
 
 
@@ -48,7 +48,7 @@ class HttpClientError(MeetupHttpBaseException):
 
 class HttpUnauthorized(HttpClientError):
     """
-    Called when the server sends a 401 error (when you don't provide a valid key)
+    Called when the server sends a 401 error (when you don't provide a valid OAuth token)
     """
 
 

@@ -2,7 +2,7 @@ import os
 import pytest
 
 from meetup import exceptions
-from meetup.api import API_KEY_ENV_NAME, Client, MeetupObject
+from meetup.api import TOKEN_ENV_NAME, Client, MeetupObject
 
 
 @pytest.fixture
@@ -11,20 +11,20 @@ def api_client():
 
 
 @pytest.mark.incremental
-class TestApiKey:
+class TestToken:
     def test_environment_key(self, api_client):
-        # Compare object API key with environment variable
-        assert api_client.api_key == os.environ.get(API_KEY_ENV_NAME)
+        # Compare object OAuth token with environment variable
+        assert api_client.token == os.environ.get(TOKEN_ENV_NAME)
 
     def test_empty_key(self, api_client):
-        # Undefined API Key should fail
-        api_client.api_key = None
-        with pytest.raises(exceptions.ApiKeyError):
+        # Undefined OAuth token should fail
+        api_client.token = None
+        with pytest.raises(exceptions.TokenError):
             api_client.GetDashboard()
 
     def test_invalid_key(self, api_client):
         # Same with invalid API Key
-        api_client.api_key = 'foobarbaz'
+        api_client.token = 'foobarbaz'
         with pytest.raises(exceptions.HttpUnauthorized):
             api_client.GetDashboard()
 

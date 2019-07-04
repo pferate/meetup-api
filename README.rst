@@ -27,7 +27,7 @@ Initialize Client and Execute API Call
 .. code-block:: python
 
     >>> import meetup.api
-    >>> client = meetup.api.Client('my_special_api_key_value')
+    >>> client = meetup.api.Client('my_special_token_value')
     >>> 
     >>> type(client)
     <class 'meetup.api.Client'>
@@ -49,7 +49,7 @@ Initialize Client and Execute API Call
     'Meetup API Testing Sandbox'
     >>> 
     >>> group_info.link
-    'http://www.meetup.com/Meetup-API-Testing/'
+    'https://www.meetup.com/Meetup-API-Testing/'
 
 For a full listing of implemented API methods, take a look at the `API Client Details`_.
 
@@ -78,11 +78,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-.. _Meetup: http://www.meetup.com/
-.. _Meetup REST API documentation: http://www.meetup.com/meetup_api/
+.. _Meetup: https://www.meetup.com/
+.. _Meetup REST API documentation: https://www.meetup.com/meetup_api/
 .. _Python: https://www.python.org/
-.. _API Client Details: http://meetup-api.readthedocs.org/en/latest/meetup_api.html#api-client-details
-.. _Getting Started: http://meetup-api.readthedocs.org/en/latest/getting_started.html
+.. _API Client Details: https://meetup-api.readthedocs.org/en/latest/meetup_api.html#api-client-details
+.. _Getting Started: https://meetup-api.readthedocs.org/en/latest/getting_started.html
 
 .. |build-status| image:: https://img.shields.io/travis/pferate/meetup-api.svg?style=flat
     :alt: Build Status

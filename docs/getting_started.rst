@@ -23,9 +23,9 @@ Usage
 Initialize Client
 ~~~~~~~~~~~~~~~~~
 
-To initialize your Meetup API Client, you will need to import the Client class and create a Client object. Before making and API requests, you will need to assign your API key to the object.
+To initialize your Meetup API Client, you will need to import the Client class and create a Client object. Before making and API requests, you will need to assign your OAuth token value to the object.
 
-Three ways to assign your API key (in order of precedence):
+Three ways to assign your OAuth token (in order of precedence):
 
 1. Assign to attribute:
 
@@ -33,20 +33,20 @@ Three ways to assign your API key (in order of precedence):
 
     >>> import meetup.api
     >>> client = meetup.api.Client()
-    >>> client.api_key = 'my_special_api_key_value'
+    >>> client.token = 'my_special_token_value'
 
 2. Assign at initialization:
 
 .. code-block:: python
 
     >>> import meetup.api
-    >>> client = meetup.api.Client('my_special_api_key_value')
+    >>> client = meetup.api.Client('my_special_token_value')
 
 3. Retrieved from environment variable:
 
 .. code-block:: bash
 
-    $ export MEETUP_API_KEY=my_special_api_key_value
+    $ export MEETUP_OAUTH_TOKEN=my_special_token_value
 
 .. code-block:: python
 
@@ -59,7 +59,7 @@ Execute API Calls
 .. code-block:: python
 
     >>> import meetup.api
-    >>> client = meetup.api.Client('my_special_api_key_value')  
+    >>> client = meetup.api.Client('my_special_token_value')  
     >>> group_info = client.GetGroup({'urlname': 'Meetup-API-Testing'})
     >>> 
     >>> type(client)
@@ -80,7 +80,7 @@ Execute API Calls
     'Meetup API Testing Sandbox'
     >>> 
     >>> group_info.link
-    'http://www.meetup.com/Meetup-API-Testing/'
+    'https://www.meetup.com/Meetup-API-Testing/'
 
 A full listing of implemented API methods can be found at
 :ref:`meetup_api`.
